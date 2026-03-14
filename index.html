@@ -2,8 +2,9 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>Putzstunden FC Rheineck</title>
+  <meta name="theme-color" content="#e45454">
   <style>
     :root{
       --bg:#fff5f5;
@@ -47,36 +48,30 @@
     }
 
     .brand{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      margin-bottom:8px;
-    }
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
 
-    .brand img{
-     width:32px;
-     height:32px;
-     object-fit:contain;
-      border-radius:8px;
-      background:#fff;
-      padding:2px;
-      box-shadow:0 2px 10px rgba(0,0,0,.06);
-    }
+.brand img{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+}
 
-    .brand-text{
-      font-size:13px;
-      font-weight:700;
-      color:var(--muted);
-      letter-spacing:.2px;
-    }
+.brand-text{
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:.2px;
+  color:#c11d1d;
+}
 
     h1{
-      margin:0 0 8px;
-      text-align:center;
-      font-size:26px;
-      line-height:1.2;
-    }
+  margin:0 0 10px;
+  font-size:24px;
+  font-weight:700;
+}
 
     .sub{
       margin:0 0 20px;
@@ -285,7 +280,7 @@
       </div>
 
       <h1>Putzstunden erfassen</h1>
-      <p class="sub">Bitte Datum, Uhrzeiten und geputzte Bereiche eintragen.</p>
+      <p class="sub">Datum, Zeit & geputzte Bereiche eintragen.</p>
 
       <form id="putzForm">
         <div class="grid">
@@ -363,7 +358,7 @@
         </div>
 
         <div class="hint">
-          Nach dem Klick auf <b>Speichern</b> erscheint nochmals eine Sicherheitsbestaetigung.
+          Nach dem Klick auf <b>Speichern</b> erscheint nochmals eine Sicherheitsbestätigung.
         </div>
 
         <div class="actions">
