@@ -74,12 +74,12 @@
 }
 
     .sub{
-      margin:0 0 20px;
-      text-align:center;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.5;
-    }
+  margin:0 0 20px;
+  text-align:left;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.5;
+  }
 
     .section{
       margin-top:20px;
@@ -464,17 +464,17 @@
       const sonstigesWert = sonstigesText.value.trim();
 
       if (!datum || !von || !bis) {
-        showStatus("Bitte Datum, Uhrzeit von und Uhrzeit bis ausfuellen.", "err");
+        showStatus("Bitte Datum, Uhrzeit von und Uhrzeit bis ausfüllen.", "err");
         return;
       }
 
       if (dauerMinuten === null || dauerMinuten <= 0) {
-        showStatus("Bitte gueltige Uhrzeiten eingeben.", "err");
+        showStatus("Bitte gültige Uhrzeiten eingeben.", "err");
         return;
       }
 
       if (aufgaben.length === 0 && !istSonstigesAktiv) {
-        showStatus("Bitte mindestens eine Aufgabe auswaehlen.", "err");
+        showStatus("Bitte mindestens eine Aufgabe auswählen.", "err");
         return;
       }
 
@@ -484,7 +484,7 @@
       }
 
       const bestaetigungText =
-        "Bitte Eintrag nochmals bestaetigen:\n\n" +
+        "Bitte Eintrag nochmals bestätigen:\n\n" +
         "Datum: " + datum + "\n" +
         "Von: " + von + "\n" +
         "Bis: " + bis + "\n" +
