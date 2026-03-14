@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Putzstunden FC Rheineck</title>
+  <style>
+    :root{
+      --bg:#fff5f5;
+      --card:#ffffff;
+      --text:#2b1a1a;
+      --muted:#7a5d5d;
+      --line:#f0caca;
+      --accent:#e45454;
+      --accent-soft:#ffe3e3;
+      --accent-hover:#cf3f3f;
+      --ok:#15803d;
+      --ok-soft:#dcfce7;
+      --danger:#b91c1c;
+      --danger-soft:#fef2f2;
+      --shadow:0 10px 30px rgba(120,20,20,.10);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg, #fff1f1 0%, #fff8f8 100%);
+      color:var(--text);
+      min-height:100vh;
+      padding:14px;
+    }
+
+    .wrap{
+      max-width:720px;
+      margin:0 auto;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin-bottom:8px;
+    }
+
+    .brand img{
+     width:32px;
+     height:32px;
+     object-fit:contain;
+      border-radius:8px;
+      background:#fff;
+      padding:2px;
+      box-shadow:0 2px 10px rgba(0,0,0,.06);
+    }
+
+    .brand-text{
+      font-size:13px;
+      font-weight:700;
+      color:var(--muted);
+      letter-spacing:.2px;
+    }
+
+    h1{
+      margin:0 0 8px;
+      text-align:center;
+      font-size:26px;
+      line-height:1.2;
+    }
+
+    .sub{
+      margin:0 0 20px;
+      text-align:center;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .section{
+      margin-top:20px;
+    }
+
+    .section-title{
+      font-size:15px;
+      font-weight:700;
+      margin:0 0 12px;
+      color:var(--text);
+    }
+
+    .grid{
+      display:grid;
+      gap:14px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    label{
+      display:block;
+      font-weight:700;
+      font-size:14px;
+      margin-bottom:8px;
+    }
+
+    input[type="date"],
+    input[type="time"],
+    textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      padding:14px 15px;
+      font-size:16px;
+      outline:none;
+      transition:.18s ease;
+      color:var(--text);
+    }
+
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    textarea:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 4px rgba(228,84,84,.14);
+    }
+
+    .dauer-box{
+      background:#fff8f8;
+      border:1px solid #f5d0d0;
+      border-radius:16px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .dauer-label{
+      display:block;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    .dauer-value{
+      font-size:24px;
+      font-weight:700;
+      color:var(--accent);
+    }
+
+    .choice-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .choice{
+      position:relative;
+    }
+
+    .choice input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .choice span{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:58px;
+      text-align:center;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:15px;
+      font-weight:700;
+      line-height:1.3;
+      transition:.16s ease;
+      user-select:none;
+    }
+
+    .choice input:checked + span{
+      background:var(--accent-soft);
+      border-color:var(--accent);
+      color:var(--accent-hover);
+      box-shadow:0 0 0 3px rgba(228,84,84,.10);
+    }
+
+    .sonstiges-wrap{
+      display:none;
+      margin-top:12px;
+    }
+
+    .sonstiges-wrap.show{
+      display:block;
+    }
+
+    .hint{
+      margin-top:14px;
+      border-radius:16px;
+      padding:14px 16px;
+      background:#fff8f8;
+      border:1px solid var(--line);
+      color:#7a5d5d;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .actions{
+      margin-top:22px;
+    }
+
+    button{
+      width:100%;
+      border:none;
+      border-radius:18px;
+      padding:16px 18px;
+      font-size:17px;
+      font-weight:700;
+      background:var(--accent);
+      color:#fff;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    button:hover{
+      background:var(--accent-hover);
+    }
+
+    button:disabled{
+      opacity:.65;
+      cursor:not-allowed;
+    }
+
+    .status{
+      display:none;
+      margin-top:14px;
+      border-radius:16px;
+      padding:14px 16px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .status.ok{
+      display:block;
+      background:var(--ok-soft);
+      color:#166534;
+      border:1px solid #bbf7d0;
+    }
+
+    .status.err{
+      display:block;
+      background:var(--danger-soft);
+      color:#991b1b;
+      border:1px solid #fecaca;
+    }
+
+    @media (max-width:640px){
+      h1{font-size:23px}
+      .grid-2{grid-template-columns:1fr}
+      .choice-grid{grid-template-columns:1fr}
+      .card{padding:16px}
+      body{padding:10px}
+      .brand img{width:30px;height:30px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="brand">
+        <img src="logo.jpg" alt="FC Rheineck Logo">
+        <div class="brand-text">FC Rheineck</div>
+      </div>
+
+      <h1>Putzstunden erfassen</h1>
+      <p class="sub">Bitte Datum, Uhrzeiten und geputzte Bereiche eintragen.</p>
+
+      <form id="putzForm">
+        <div class="grid">
+          <div>
+            <label for="datum">Datum</label>
+            <input type="date" id="datum" required />
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <label for="von">Uhrzeit von</label>
+              <input type="time" id="von" required />
+            </div>
+            <div>
+              <label for="bis">Uhrzeit bis</label>
+              <input type="time" id="bis" required />
+            </div>
+          </div>
+
+          <div class="dauer-box">
+            <span class="dauer-label">Automatisch berechnete Dauer</span>
+            <div class="dauer-value" id="dauerAnzeige">-</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Was wurde geputzt?</div>
+
+          <div class="choice-grid">
+            <label class="choice">
+              <input type="checkbox" value="Toiletten, Lavabo, WC" class="task-checkbox" />
+              <span>Toiletten, Lavabo, WC</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" value="Toiletten wischen" class="task-checkbox" />
+              <span>Toiletten wischen</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" value="Toiletten Nasswischen" class="task-checkbox" />
+              <span>Toiletten Nasswischen</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" value="Garderoben wischen" class="task-checkbox" />
+              <span>Garderoben wischen</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" value="Garderoben nasswischen" class="task-checkbox" />
+              <span>Garderoben nasswischen</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" value="Korridor EG wischen" class="task-checkbox" />
+              <span>Korridor EG wischen</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" value="Korridor EG nasswischen" class="task-checkbox" />
+              <span>Korridor EG nasswischen</span>
+            </label>
+
+            <label class="choice">
+              <input type="checkbox" value="Sonstiges" id="sonstigesToggle" />
+              <span>Sonstiges</span>
+            </label>
+          </div>
+
+          <div class="sonstiges-wrap" id="sonstigesWrap">
+            <label for="sonstigesText" style="margin-top:14px;">Sonstiges bitte eingeben</label>
+            <textarea id="sonstigesText" rows="3" placeholder="Hier sonstige Arbeiten eintragen"></textarea>
+          </div>
+        </div>
+
+        <div class="hint">
+          Nach dem Klick auf <b>Speichern</b> erscheint nochmals eine Sicherheitsbestaetigung.
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="saveBtn">Speichern</button>
+        </div>
+
+        <div id="status" class="status"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwzckC3UnfOHU-6I8uXcsadFc-qKTTeohBADreQE2Frgi6FTM82qabA17bXjeuAqFBkEg/exec";
+
+    const form = document.getElementById("putzForm");
+    const datumInput = document.getElementById("datum");
+    const vonInput = document.getElementById("von");
+    const bisInput = document.getElementById("bis");
+    const dauerAnzeige = document.getElementById("dauerAnzeige");
+    const statusBox = document.getElementById("status");
+    const saveBtn = document.getElementById("saveBtn");
+    const taskCheckboxes = document.querySelectorAll(".task-checkbox");
+    const sonstigesToggle = document.getElementById("sonstigesToggle");
+    const sonstigesWrap = document.getElementById("sonstigesWrap");
+    const sonstigesText = document.getElementById("sonstigesText");
+
+    function setHeuteAlsStandard() {
+      const heute = new Date();
+      const yyyy = heute.getFullYear();
+      const mm = String(heute.getMonth() + 1).padStart(2, "0");
+      const dd = String(heute.getDate()).padStart(2, "0");
+      datumInput.value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    function berechneDauerMinuten(von, bis) {
+      if (!von || !bis) return null;
+
+      const [vh, vm] = von.split(":").map(Number);
+      const [bh, bm] = bis.split(":").map(Number);
+
+      let start = vh * 60 + vm;
+      let ende = bh * 60 + bm;
+
+      if (ende < start) {
+        ende += 24 * 60;
+      }
+
+      return ende - start;
+    }
+
+    function formatiereDauer(minuten) {
+      if (minuten === null || minuten === undefined) return "-";
+
+      const std = Math.floor(minuten / 60);
+      const min = minuten % 60;
+
+      if (std > 0 && min > 0) return `${std}h ${min}min`;
+      if (std > 0) return `${std}h`;
+      return `${min}min`;
+    }
+
+    function updateDauerAnzeige() {
+      const minuten = berechneDauerMinuten(vonInput.value, bisInput.value);
+      dauerAnzeige.textContent = formatiereDauer(minuten);
+    }
+
+    function updateSonstigesAnzeige() {
+      if (sonstigesToggle.checked) {
+        sonstigesWrap.classList.add("show");
+      } else {
+        sonstigesWrap.classList.remove("show");
+        sonstigesText.value = "";
+      }
+    }
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = "status " + type;
+    }
+
+    function holeAusgewaehlteAufgaben() {
+      return Array.from(taskCheckboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+    }
+
+    vonInput.addEventListener("input", updateDauerAnzeige);
+    bisInput.addEventListener("input", updateDauerAnzeige);
+    sonstigesToggle.addEventListener("change", updateSonstigesAnzeige);
+
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      statusBox.className = "status";
+      statusBox.textContent = "";
+
+      const datum = datumInput.value;
+      const von = vonInput.value;
+      const bis = bisInput.value;
+      const dauerMinuten = berechneDauerMinuten(von, bis);
+      const dauerText = formatiereDauer(dauerMinuten);
+      const aufgaben = holeAusgewaehlteAufgaben();
+      const istSonstigesAktiv = sonstigesToggle.checked;
+      const sonstigesWert = sonstigesText.value.trim();
+
+      if (!datum || !von || !bis) {
+        showStatus("Bitte Datum, Uhrzeit von und Uhrzeit bis ausfuellen.", "err");
+        return;
+      }
+
+      if (dauerMinuten === null || dauerMinuten <= 0) {
+        showStatus("Bitte gueltige Uhrzeiten eingeben.", "err");
+        return;
+      }
+
+      if (aufgaben.length === 0 && !istSonstigesAktiv) {
+        showStatus("Bitte mindestens eine Aufgabe auswaehlen.", "err");
+        return;
+      }
+
+      if (istSonstigesAktiv && !sonstigesWert) {
+        showStatus('Bitte bei "Sonstiges" einen Text eingeben.', "err");
+        return;
+      }
+
+      const bestaetigungText =
+        "Bitte Eintrag nochmals bestaetigen:\n\n" +
+        "Datum: " + datum + "\n" +
+        "Von: " + von + "\n" +
+        "Bis: " + bis + "\n" +
+        "Dauer: " + dauerText + "\n" +
+        "Aufgaben: " + (aufgaben.length ? aufgaben.join(", ") : "-") + "\n" +
+        "Sonstiges: " + (istSonstigesAktiv ? sonstigesWert : "-") + "\n\n" +
+        "Jetzt wirklich speichern?";
+
+      if (!confirm(bestaetigungText)) {
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Speichert...";
+
+      const payload = {
+        datum: datum,
+        von: von,
+        bis: bis,
+        aufgaben: aufgaben,
+        sonstigesAktiviert: istSonstigesAktiv,
+        sonstigesText: sonstigesWert
+      };
+
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error("HTTP " + res.status);
+        }
+
+        const json = await res.json().catch(() => ({}));
+
+        if (json.success === false) {
+          throw new Error(json.message || "Unbekannter Fehler");
+        }
+
+        showStatus("Eintrag wurde erfolgreich gespeichert.", "ok");
+
+        const datumMerken = datumInput.value;
+        form.reset();
+        datumInput.value = datumMerken;
+        updateDauerAnzeige();
+        updateSonstigesAnzeige();
+
+      } catch (err) {
+        showStatus("Fehler beim Speichern: " + err.message, "err");
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Speichern";
+      }
+    });
+
+    setHeuteAlsStandard();
+    updateDauerAnzeige();
+    updateSonstigesAnzeige();
+  </script>
+</body>
+</html>
